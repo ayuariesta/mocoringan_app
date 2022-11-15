@@ -21,32 +21,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Background(
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Responsive(
-              mobile: const MobileSignupScreen(),
-              desktop: Row(
-                children: [
-                  const Expanded(
-                    child: SignUpScreenTopImage(),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        SizedBox(
-                          width: 450,
-                          child: SignUpForm(),
-                        ),
-                        SizedBox(height: defaultPadding / 2),
-                      ],
+      child: SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Responsive(
+                mobile: const MobileSignupScreen(),
+                desktop: Row(
+                  children: [
+                    const Expanded(
+                      child: SignUpScreenTopImage(),
                     ),
-                  )
-                ],
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          SizedBox(
+                            width: 450,
+                            child: SignUpForm(),
+                          ),
+                          SizedBox(height: defaultPadding / 2),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
