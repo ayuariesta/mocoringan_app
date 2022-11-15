@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "310920443520",
+    "project_id": "mocoringanapp",
+    "storage_bucket": "mocoringanapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:310920443520:android:d2c6c13f8414a8591c5865",
+        "android_client_info": {
+          "package_name": "com.example.mocoringan_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "310920443520-1smt5uhdkhskqhg0t94cbui09djorq48.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mocoringan_app",
+            "certificate_hash": "34bb8f1222b8708afd5a37f2d26bfdd05682ef79"
+          }
+        },
+        {
+          "client_id": "310920443520-ud47lv9j2url6if4nn6vmvu05juu097h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBFhaDA2TgpdKA7ZiQz-ublypHP5s5iEL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "310920443520-ud47lv9j2url6if4nn6vmvu05juu097h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
