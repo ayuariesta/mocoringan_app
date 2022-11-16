@@ -109,7 +109,7 @@ class _ProteksiFormState extends State<ProteksiForm> {
               color: Colors.grey[800],
             ),
           ),
-          SizedBox(height: 16.0),
+          SizedBox(height: 20.0),
           Text(
             widget.isEdit ? 'Edit\nData Proteksi' : 'Create\nData Proteksi',
             style: TextStyle(
@@ -119,13 +119,6 @@ class _ProteksiFormState extends State<ProteksiForm> {
             ),
           ),
           SizedBox(height: 16.0),
-          TextField(
-            controller: sectionController,
-            decoration: InputDecoration(
-              labelText: 'Nama Section',
-            ),
-            style: TextStyle(fontSize: 18.0),
-          ),
         ],
       ),
     );
@@ -145,31 +138,39 @@ class _ProteksiFormState extends State<ProteksiForm> {
         child: Column(
           children: <Widget>[
             TextField(
+              controller: sectionController,
+              decoration: InputDecoration(
+                labelText: 'Nama Section',
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Icon(Icons.person),
+                ),
+              ),
+              style: TextStyle(fontSize: 16.0),
+            ),
+            SizedBox(height: 18.0),
+            TextField(
               controller: arusController,
               decoration: InputDecoration(
                 label: Text('Arus Fuse Link'),
-                suffixIcon: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.electric_bolt),
-                  ],
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Icon(Icons.electric_bolt),
                 ),
               ),
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 14.0),
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 18.0),
             TextField(
               controller: tanggalController,
               decoration: InputDecoration(
                 label: Text('Tanggal'),
-                suffixIcon: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.today),
-                  ],
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Icon(Icons.calendar_month),
                 ),
               ),
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 14.0),
               readOnly: true,
               onTap: () async {
                 DateTime today = DateTime.now();

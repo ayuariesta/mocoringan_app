@@ -33,6 +33,7 @@ class _ProteksiListState extends State<ProteksiList> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "btn2",
         child: Icon(
           Icons.add,
           color: kPrimaryLightColor,
