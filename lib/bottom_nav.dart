@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'screen/dashboard.dart';
 import 'package:mocoringan_app/constants.dart';
+import 'screen/scanner.dart';
+import 'screen/proteksi.dart';
+import 'screen/search_data.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'screen/Login/login_screen.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -14,12 +19,17 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 4,
       initialIndex: selectedIndex,
       child: Scaffold(
         body: IndexedStack(
           index: selectedIndex,
-          children: [Dashboard()],
+          children: const [
+            Dashboard(),
+            SearchData(),
+            ProteksiList(),
+            ScannerQRCode()
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: selectedIndex,
@@ -37,14 +47,37 @@ class _BottomNavState extends State<BottomNav> {
               ),
             ),
             BottomNavigationBarItem(
-              label: "Profile",
+              label: "Cari Data",
               icon: Icon(
-                Icons.person,
+                Icons.search,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Proteksi",
+              icon: Icon(
+                Icons.format_align_justify,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Scanner",
+              icon: Icon(
+                Icons.scanner,
               ),
             ),
           ],
         ),
       ),
     );
+  }
+
+  Future<void> _logout() async {
+    final pref = await SharedPreferences.getInstance();
+    pref.clear(); // <- remove sharedpreferences
+
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) =>
+                new LoginScreen())); // <- navigasi ke halaman awal
   }
 }
