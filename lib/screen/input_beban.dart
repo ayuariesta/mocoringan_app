@@ -7,14 +7,14 @@ import 'package:intl/intl.dart';
 class BebanForm extends StatefulWidget {
   final bool isEdit;
   final String bebanId;
-  final String namaSection;
+  final String namaSec;
   final String tanggal;
   final String nilaiUkur;
 
   const BebanForm({
     required this.isEdit,
     this.bebanId = '',
-    this.namaSection = '',
+    this.namaSec = '',
     this.tanggal = '',
     this.nilaiUkur = '',
   });
@@ -28,7 +28,7 @@ class _BebanFormState extends State<BebanForm> {
 
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
-  TextEditingController sectionController = TextEditingController();
+  TextEditingController namasectionController = TextEditingController();
   TextEditingController tanggalController = TextEditingController();
   TextEditingController ukurController = TextEditingController();
 
@@ -41,7 +41,7 @@ class _BebanFormState extends State<BebanForm> {
   void initState() {
     if (widget.isEdit) {
       tanggal = DateFormat('dd MMMM yyyy').parse(widget.tanggal);
-      sectionController.text = widget.namaSection;
+      namasectionController.text = widget.namaSec;
       tanggalController.text = widget.tanggal;
       ukurController.text = widget.nilaiUkur;
     } else {
@@ -108,7 +108,7 @@ class _BebanFormState extends State<BebanForm> {
               color: Colors.grey[800],
             ),
           ),
-          SizedBox(height: 16.0),
+          SizedBox(height: 20.0),
           Text(
             widget.isEdit ? 'Edit\nData Beban' : 'Create\nData Beban',
             style: TextStyle(
@@ -136,39 +136,42 @@ class _BebanFormState extends State<BebanForm> {
         padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
         child: Column(
           children: <Widget>[
+            SizedBox(height: 14.0),
             TextField(
-              controller: sectionController,
+              controller: namasectionController,
               decoration: InputDecoration(
                 labelText: 'Nama Section',
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Icon(Icons.person),
+                ),
               ),
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 16.0),
             ),
+            SizedBox(height: 18.0),
             TextField(
+              keyboardType: TextInputType.number,
               controller: ukurController,
               decoration: InputDecoration(
                 label: Text('Nilai Pengukuran'),
-                suffixIcon: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.electric_bolt),
-                  ],
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(15.0),
+                  child: Icon(Icons.electric_bolt),
                 ),
               ),
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 16.0),
+            SizedBox(height: 18.0),
             TextField(
               controller: tanggalController,
               decoration: InputDecoration(
                 label: Text('Tanggal'),
-                suffixIcon: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Icon(Icons.today),
-                  ],
+                prefixIcon: Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Icon(Icons.calendar_month),
                 ),
               ),
-              style: TextStyle(fontSize: 18.0),
+              style: TextStyle(fontSize: 14.0),
               readOnly: true,
               onTap: () async {
                 DateTime today = DateTime.now();
@@ -199,23 +202,22 @@ class _BebanFormState extends State<BebanForm> {
       child: ElevatedButton(
         child: Text(widget.isEdit ? 'UPDATE DATA' : 'SIMPAN'),
         onPressed: () async {
-          String section = sectionController.text;
+          String namasection = namasectionController.text;
           String ukur = ukurController.text;
-          String date = tanggalController.text;
+          String tanggal = tanggalController.text;
           setState(() => isLoading = true);
           if (widget.isEdit) {
             DocumentReference documentReference =
                 firebaseFirestore.doc('beban/${widget.bebanId}');
             firebaseFirestore.runTransaction((transaction) async {
-              DocumentSnapshot protek =
-                  await transaction.get(documentReference);
-              if (protek.exists) {
+              DocumentSnapshot beban = await transaction.get(documentReference);
+              if (beban.exists) {
                 await transaction.update(
                   documentReference,
                   <String, dynamic>{
-                    'section': section,
+                    'namasection': namasection,
                     'ukur': ukur,
-                    'date': date,
+                    'tanggal': tanggal,
                   },
                 );
                 Navigator.pop(context, true);
@@ -224,9 +226,9 @@ class _BebanFormState extends State<BebanForm> {
           } else {
             CollectionReference beban = firebaseFirestore.collection('beban');
             DocumentReference result = await beban.add(<String, dynamic>{
-              'section': section,
+              'namasection': namasection,
               'ukur': ukur,
-              'date': date,
+              'tanggal': tanggal,
             });
             if (result.id != null) {
               Navigator.pop(context, true);

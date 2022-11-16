@@ -33,6 +33,7 @@ class _DataBebanListState extends State<DataBebanList> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        heroTag: "btn1",
         child: Icon(
           Icons.add,
           color: kPrimaryLightColor,
@@ -77,7 +78,7 @@ class _DataBebanListState extends State<DataBebanList> {
             child: StreamBuilder<QuerySnapshot>(
               stream: firebaseFirestore
                   .collection('beban')
-                  .orderBy('date')
+                  .orderBy('tanggal')
                   .snapshots(),
               builder: (BuildContext context,
                   AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -90,14 +91,14 @@ class _DataBebanListState extends State<DataBebanList> {
                   itemBuilder: (BuildContext context, int index) {
                     DocumentSnapshot documentSnapshot =
                         snapshot.data!.docs[index];
-                    Map<String, dynamic>? protek =
+                    Map<String, dynamic>? bbn =
                         documentSnapshot.data() as Map<String, dynamic>?;
-                    String strDate = protek!['date'];
+                    String strDate = bbn!['tanggal'];
                     return Card(
                       child: ListTile(
-                        title: Text(protek['section']),
+                        title: Text(bbn['namasection']),
                         subtitle: Text(
-                          protek['arus'],
+                          bbn['ukur'],
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -148,9 +149,9 @@ class _DataBebanListState extends State<DataBebanList> {
                                   return BebanForm(
                                     isEdit: true,
                                     bebanId: documentSnapshot.id,
-                                    namaSection: protek['section'],
-                                    nilaiUkur: protek['ukur'],
-                                    tanggal: protek['date'],
+                                    namaSec: bbn['namasection'],
+                                    nilaiUkur: bbn['ukur'],
+                                    tanggal: bbn['tanggal'],
                                   );
                                 }),
                               );
@@ -169,7 +170,7 @@ class _DataBebanListState extends State<DataBebanList> {
                                     return AlertDialog(
                                       title: Text('Apakah kamu yakin?'),
                                       content: Text(
-                                          'Apakah kamu ingin menghapus ${protek['section']}'),
+                                          'Apakah kamu ingin menghapus ${bbn['namasection']}'),
                                       actions: <Widget>[
                                         TextButton(
                                           child: Text('No'),
