@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:mocoringan_app/constants.dart';
 
-class SearchData extends StatefulWidget {
-  const SearchData({super.key});
+class SearchBeban extends StatefulWidget {
+  const SearchBeban({super.key});
 
   @override
-  State<SearchData> createState() => _SearchDataState();
+  State<SearchBeban> createState() => _SearchBebanState();
 }
 
-class _SearchDataState extends State<SearchData> {
+class _SearchBebanState extends State<SearchBeban> {
   var inputText = "";
 
   @override
@@ -29,7 +29,7 @@ class _SearchDataState extends State<SearchData> {
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       borderSide: BorderSide(color: Colors.grey)),
-                  hintText: "Search products here",
+                  hintText: "Search beban",
                   hintStyle: TextStyle(fontSize: 15.0),
                 ),
                 onChanged: (val) {
@@ -43,8 +43,9 @@ class _SearchDataState extends State<SearchData> {
                 child: Container(
                   child: StreamBuilder(
                       stream: FirebaseFirestore.instance
-                          .collection('proteksi')
-                          .where('section', isGreaterThanOrEqualTo: inputText)
+                          .collection('beban')
+                          .where('namasection',
+                              isGreaterThanOrEqualTo: inputText)
                           .snapshots(),
                       builder: (BuildContext context,
                           AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -69,8 +70,8 @@ class _SearchDataState extends State<SearchData> {
                             return Card(
                               elevation: 5,
                               child: ListTile(
-                                title: Text(data['section']),
-                                leading: Text(data['arus']),
+                                title: Text(data['namasection']),
+                                leading: Text(data['ukur']),
                               ),
                             );
                           }).toList(),
