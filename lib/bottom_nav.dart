@@ -20,17 +20,16 @@ class _BottomNavState extends State<BottomNav> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 4,
+      length: 5,
       initialIndex: selectedIndex,
       child: Scaffold(
         body: IndexedStack(
           index: selectedIndex,
           children: const [
             Dashboard(),
-            SearchData(),
             ProteksiList(),
             DataBebanList(),
-            ScannerQRCode()
+            ScannerQRCode(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -46,12 +45,6 @@ class _BottomNavState extends State<BottomNav> {
               label: "Home",
               icon: Icon(
                 Icons.home,
-              ),
-            ),
-            BottomNavigationBarItem(
-              label: "Cari Data",
-              icon: Icon(
-                Icons.search,
               ),
             ),
             BottomNavigationBarItem(
