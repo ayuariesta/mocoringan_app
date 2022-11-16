@@ -86,10 +86,10 @@ class _SignUpFormState extends State<SignUpForm> {
                 textInputAction: TextInputAction.next,
                 cursorColor: kPrimaryColor,
                 decoration: InputDecoration(
-                  hintText: "Jabatan (Yantek, Inspeksi, Admin)",
+                  hintText: "Jabatan (Yantek, Inspeksi)",
                   prefixIcon: Padding(
                     padding: const EdgeInsets.all(defaultPadding),
-                    child: Icon(Icons.phone),
+                    child: Icon(Icons.work),
                   ),
                 ),
                 validator: (value) {
