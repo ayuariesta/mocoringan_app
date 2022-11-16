@@ -9,14 +9,14 @@ class ProteksiForm extends StatefulWidget {
   final bool isEdit;
   final String proteksiId;
   final String namaSection;
-  final String tanggalPengecekan;
+  final String tanggal;
   final String arusFL;
 
   const ProteksiForm({
     required this.isEdit,
     this.proteksiId = '',
     this.namaSection = '',
-    this.tanggalPengecekan = '',
+    this.tanggal = '',
     this.arusFL = '',
   });
 
@@ -25,6 +25,8 @@ class ProteksiForm extends StatefulWidget {
 }
 
 class _ProteksiFormState extends State<ProteksiForm> {
+  var proteksiID = "";
+
   GlobalKey<ScaffoldState> _scaffoldState = GlobalKey();
   FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
   TextEditingController sectionController = TextEditingController();
@@ -39,9 +41,9 @@ class _ProteksiFormState extends State<ProteksiForm> {
   @override
   void initState() {
     if (widget.isEdit) {
-      tanggal = DateFormat('dd MMMM yyyy').parse(widget.tanggalPengecekan);
+      tanggal = DateFormat('dd MMMM yyyy').parse(widget.tanggal);
       sectionController.text = widget.namaSection;
-      tanggalController.text = widget.tanggalPengecekan;
+      tanggalController.text = widget.tanggal;
       arusController.text = widget.arusFL;
     } else {
       tanggalController.text = DateFormat('dd MMMM yyyy').format(tanggal);
@@ -109,10 +111,11 @@ class _ProteksiFormState extends State<ProteksiForm> {
           ),
           SizedBox(height: 16.0),
           Text(
-            widget.isEdit ? 'Edit\nTask' : 'Create\nNew Task',
+            widget.isEdit ? 'Edit\nData Proteksi' : 'Create\nData Proteksi',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.grey[800],
+              fontSize: 25.0,
             ),
           ),
           SizedBox(height: 16.0),
@@ -179,7 +182,7 @@ class _ProteksiFormState extends State<ProteksiForm> {
                 if (datePicker != null) {
                   tanggal = datePicker;
                   tanggalController.text =
-                      DateFormat('dd MMMM yyyy').format(today);
+                      DateFormat('dd MMMM yyyy').format(tanggal);
                 }
               },
             ),
@@ -195,7 +198,7 @@ class _ProteksiFormState extends State<ProteksiForm> {
       color: Colors.white,
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
       child: ElevatedButton(
-        child: Text(widget.isEdit ? 'UPDATE TASK' : 'CREATE TASK'),
+        child: Text(widget.isEdit ? 'UPDATE DATA' : 'SIMPAN'),
         onPressed: () async {
           String section = sectionController.text;
           String arus = arusController.text;
@@ -213,9 +216,10 @@ class _ProteksiFormState extends State<ProteksiForm> {
                   <String, dynamic>{
                     'section': section,
                     'arus': arus,
-                    'date': tanggal,
+                    'date': date,
                   },
                 );
+                Navigator.pop(context, true);
               }
             });
           } else {

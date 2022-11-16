@@ -6,6 +6,7 @@ import 'screen/proteksi.dart';
 import 'screen/search_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screen/Login/login_screen.dart';
+import 'screen/beban.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -28,6 +29,7 @@ class _BottomNavState extends State<BottomNav> {
             Dashboard(),
             SearchData(),
             ProteksiList(),
+            DataBebanList(),
             ScannerQRCode()
           ],
         ),
@@ -56,6 +58,12 @@ class _BottomNavState extends State<BottomNav> {
               label: "Proteksi",
               icon: Icon(
                 Icons.format_align_justify,
+              ),
+            ),
+            BottomNavigationBarItem(
+              label: "Data Beban",
+              icon: Icon(
+                Icons.format_align_center,
               ),
             ),
             BottomNavigationBarItem(

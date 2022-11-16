@@ -38,7 +38,7 @@ class _ProteksiListState extends State<ProteksiList> {
           color: kPrimaryLightColor,
         ),
         onPressed: () async {
-          bool result = await Navigator.push(
+          bool? result = await Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) => ProteksiForm(isEdit: false)));
@@ -142,7 +142,7 @@ class _ProteksiListState extends State<ProteksiList> {
                           onSelected: (String value) async {
                             if (value == 'edit') {
                               // TODO: fitur edit task
-                              bool result = await Navigator.push(
+                              bool? result = await Navigator.push(
                                 context,
                                 MaterialPageRoute(builder: (context) {
                                   return ProteksiForm(
@@ -150,7 +150,7 @@ class _ProteksiListState extends State<ProteksiList> {
                                     proteksiId: documentSnapshot.id,
                                     namaSection: protek['section'],
                                     arusFL: protek['arus'],
-                                    tanggalPengecekan: protek['date'],
+                                    tanggal: protek['date'],
                                   );
                                 }),
                               );
@@ -203,13 +203,5 @@ class _ProteksiListState extends State<ProteksiList> {
         ],
       ),
     );
-  }
-
-  Future<void> _deleteroteksi(String proteksiId) async {
-    await _proteks.doc(proteksiId).delete();
-
-    // Show a snackbar
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('You have successfully deleted a product')));
   }
 }
