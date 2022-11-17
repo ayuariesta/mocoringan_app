@@ -26,9 +26,9 @@ class _DashboardState extends State<Dashboard> {
   userCek() async {
     final prefs = await SharedPreferences.getInstance();
 
-    var id = prefs.getString('id');
-    var name = prefs.getString('nama');
-    var usern = prefs.getString('username');
+    String? id = prefs.getString('id');
+    String? name = prefs.getString('nama');
+    String? usern = prefs.getString('username');
 
     if (id == null) {
       Navigator.pop(context);
@@ -69,6 +69,7 @@ class _DashboardState extends State<Dashboard> {
                 color: kPrimaryColor,
               ),
             ),
+            SizedBox(height: 30.0),
             GridView.count(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
@@ -140,48 +141,6 @@ class _DashboardState extends State<Dashboard> {
                             ),
                             Text("Cari\nData Beban",
                                 style: TextStyle(fontSize: 17.0)),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                GestureDetector(
-                  onTap: () async {
-                    final pref = await SharedPreferences.getInstance();
-                    pref.clear(); // <- remove sharedpreferences
-
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (BuildContext context) =>
-                                new LoginScreen()));
-                  },
-                  child: Card(
-                    margin: const EdgeInsets.all(8),
-                    elevation: 4,
-                    child: InkWell(
-                      onTap: () async {
-                        final pref = await SharedPreferences.getInstance();
-                        pref.clear(); // <- remove sharedpreferences
-
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    new LoginScreen()));
-                      },
-                      splashColor: kPrimaryColor,
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: const <Widget>[
-                            Icon(
-                              Icons.logout,
-                              size: 70,
-                              color: kPrimaryColor,
-                            ),
-                            Text("Logout", style: TextStyle(fontSize: 17.0)),
                           ],
                         ),
                       ),

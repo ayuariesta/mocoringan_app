@@ -7,6 +7,7 @@ import 'screen/search_data.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'screen/Login/login_screen.dart';
 import 'screen/beban.dart';
+import 'screen/Profile/profile_screen.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({Key? key}) : super(key: key);
@@ -30,6 +31,7 @@ class _BottomNavState extends State<BottomNav> {
             ProteksiList(),
             DataBebanList(),
             ScannerQRCode(),
+            ProfileScreen()
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
@@ -65,20 +67,15 @@ class _BottomNavState extends State<BottomNav> {
                 Icons.scanner,
               ),
             ),
+            BottomNavigationBarItem(
+              label: "Profile",
+              icon: Icon(
+                Icons.person,
+              ),
+            ),
           ],
         ),
       ),
     );
-  }
-
-  Future<void> _logout() async {
-    final pref = await SharedPreferences.getInstance();
-    pref.clear(); // <- remove sharedpreferences
-
-    Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-            builder: (BuildContext context) =>
-                new LoginScreen())); // <- navigasi ke halaman awal
   }
 }
